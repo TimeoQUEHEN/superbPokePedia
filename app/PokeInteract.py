@@ -6,6 +6,8 @@
 import requests
 
 
+# # TODO Docstring # #
+
 class PokeInteract:
     def __init__(self):
         self.url = "https://pokeapi.co/api/v2/"
@@ -39,3 +41,37 @@ class PokeInteract:
     def get_species(self, name):
         poke = self.get_poke(name)
         return requests.get(poke['species']['url']).json()
+
+    @staticmethod
+    def get_poke_ability(poke) -> list:
+        return poke['abilities']
+
+    @staticmethod
+    def get_poke_id(poke: dict) -> int:
+        return poke['id']
+
+    @staticmethod
+    def get_poke_exp(poke: dict) -> int:
+        return poke['base_experience']
+
+    @staticmethod
+    def get_poke_sprite(poke: dict) -> dict:
+        if poke['sprites']['front_female']:
+            return {'male': poke['sprites']['front_default'],
+                    'female': poke['sprites']['front_female'],
+                    'shiny': poke['sprites']['front_shiny'],
+                    'shiny_female': poke['sprites']['front_shiny_female']}
+        else:
+            return {'male': poke['sprites']['front_default'],
+                    'shiny': poke['sprites']['front_shiny']}
+
+    @staticmethod
+    def get_poke_stats(poke: dict):
+        return poke['stats']
+    # TODO repare
+
+    @staticmethod
+    def get_poke_types(poke: dict):
+        if len(poke['types']) > 1:
+            return [poke['types'][:]['type']['name']]
+        return [poke['types'][0]['type']['name']]
