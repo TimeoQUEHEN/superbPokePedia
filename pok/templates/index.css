@@ -1,0 +1,16 @@
+.blocPok {
+    border-top-right-radius: 10%;
+    border-color: black;
+    border-width: 2px;
+}
+
+.researchBarPok {
+    color: red;
+    border-radius: 10%;
+}
+
+nav a {
+    color: red;
+    font-size: 10px;
+    margin-left: 50px;
+}

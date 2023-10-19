@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} {{pokemon}} {% endblock %}</h1>
+    <table id="tableauPok">
+        <thead>{{pokemon}}</thead>
+        <tr>
+            <td></td>
+        </tr>
+        {% for info in info_recup_de_lapi %}
+        <tr>
+            <td>{{ nom_de_linfo }}</td>
+            <td>{{ col }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
