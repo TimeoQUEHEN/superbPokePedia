@@ -1,29 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<p>
-  <a href=" https://moodle.univ-artois.fr/course/view.php?id=824"> Moodle / Slides </a>
-</p>
-<p>
-  <a href="./hello">Exemple slides</a>
-</p>
-<br>
-<p>
-  <a href="https://gitlab.univ-artois.fr/benjamin.lecha/msi-etu-2023/-/wikis/home"> les TP </a>
-</p>
-<p>
-  <a href="./tp1/exo1">TP 1 Exo 1</a>
-</p>
-<p>
-  <a href="./tp1/exo2">TP 1 Exo 2</a>
-</p>
-<br>
-<p>
-  <a href="./tp2">TP 2</a>
-</p>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Index {% endblock %}</h1>
+    <div class="researchBarPok">
+        <input type="search"/>
+    </div>
+    <main>
+        <div class="blocPok">
+            <p>Favorite pokemons goes here</p>
+        </div>
+        <div class="blocPok">
+            <p>Table des types goes here (dynamic table would be fancy)</p>
+        </div>
+    </main>
+    <aside>
+        
+    </aside>
+    <h3>{{ var }}, that should be a random variable</h3>
+{% endblock %}
