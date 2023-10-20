@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Index {% endblock %}</h1>
+    <div class="researchBarPok">
+        <input type="search"/>
+    </div>
+    <main>
+        <div class="blocPok">
+            <p>Favorite pokemons goes here</p>
+        </div>
+        <div class="blocPok">
+            <p>Table des types goes here (dynamic table would be fancy)</p>
+        </div>
+    </main>
+    <aside>
+
+    </aside>
+    <h3>{{ var }}, that should be a random variable</h3>
+{% endblock %}

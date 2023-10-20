@@ -1,0 +1,45 @@
+.blocPok {
+    display: flex;
+    margin:1% ;
+    border : solid;
+    width:25%;
+    min-height:25%;
+    border-radius:30px;
+    border-color: black;
+    border-width: 2px;
+}
+
+.researchBarPok {
+    color: red;
+    border-radius: 10%;
+}
+
+nav a {
+    color: red;
+    font-size: 10px;
+    margin-left: 50px;
+}
+
+footer {
+    background-color: lightseagreen;
+    align-content: center;
+    color: black;
+    padding:2%;
+}
+
+footer a {
+    margin-left: 1%;
+}
+
+table, th, td {
+    border : 2px solid black;
+}
+
+#tableauPok{
+    border:solid, black, 2px;
+}
+
+#tabFamille{
+    border:solid;
+    padding: 1%;
+}
