@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %} - SPP - SuperbPokePedia</title>
+        <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#">Account</a>
+            <a href="#">Register</a>
+            <a href="#">Trending Pokemon</a>
+        </nav>
+    </header>
+    <hr>
+    <div class="content">
+        {% block content %} {% endblock %}
+    </div>
+</body>
+<footer>
+    <a href="">PokeAPI</a>
+    <a href="">Pokemon</a>
+    <a href="">Connections</a>
+
+</footer>
+</html>

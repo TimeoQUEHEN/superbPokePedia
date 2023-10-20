@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} {{pok_name_fr}} {% endblock %}</h1>
+    <table id="tableauPok">
+        <thead>{{pok_name_fr}} / {{pok_name_eng}}</thead>
+        <tr>
+            {% for sprite in listeSprite %}
+            <td>{{sprite}}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            {% for type in listeType %}
+            <td>{{sprite}}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td colspan="3">Statistiques au niveau 1</td>
+        </tr>
+        <tr>
+            {% for stats in dicoStats %}
+            <td colspan="1">{{stats}} : {{dicoStats[stats]}}</td>
+            {% endfor %}
+        </tr>
+    </table>
+    <table id="tabFamille">
+        <thead>Famille</thead>
+        <tr>
+            {% for famille_sprite in listeFamilleSprite %}
+            <td><a href=""><img src="{{famille_sprite}}"></a></td>
+            {% endfor %}
+        </tr>
+    </table>
+{% endblock %}
