@@ -1,11 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} {{pokemon}} {% endblock %}</h1>
+    <h1>{% block title %} {{pokemon_name}} {% endblock %}</h1>
     <table id="tableauPok">
-        <thead>{{pokemon}}</thead>
+        <thead>{{pok_name_fr}} / {{pok_name_eng}}</thead>
         <tr>
-            <td></td>
+            <td>{{sprite}}</td>
+            <td>{{sprite_shiny}}</td>
+            <td>{{sprite_region_diff}}</td>
+        </tr>
+        <tr>
+            <td>Statistiques au niveau 1</td>
+        </tr>
+        <tr>
+            {% for stats in stats_du_pok %}
+            <td>{{stats}}</td>
+            {% for stats in stats_du_pok %}
         </tr>
         {% for info in info_recup_de_lapi %}
         <tr>
@@ -13,5 +23,8 @@
             <td>{{ col }}</td>
         </tr>
         {% endfor %}
+    </table>
+    <table>
+        <thead>Famille</thead>
     </table>
 {% endblock %}

@@ -1,5 +1,8 @@
 .blocPok {
-    border-top-right-radius: 10%;
+    margin:1% ;
+    border : solid;
+    width:25%;
+    border-top-right-radius: 15%;
     border-color: black;
     border-width: 2px;
 }
@@ -13,4 +16,8 @@ nav a {
     color: red;
     font-size: 10px;
     margin-left: 50px;
+}
+
+footer {
+    
 }
