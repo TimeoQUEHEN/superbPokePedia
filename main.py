@@ -1,26 +1,16 @@
-import requests as requests
-from flask import Flask, render_template, redirect
-from markupsafe import escape
-from datetime import datetime, date
+import requests
+from flask import Flask
 
-from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField
-from wtforms.validators import DataRequired
-
-class NameForm(FlaskForm):
-    name = StringField('name', validators=[DataRequired()])
-
-
-app = Flask(__name__, static_url_path='',
-            static_folder='static',
-            template_folder='templates')
-app.secret_key = "Welcome to SPP"
-
+app = Flask(__name__)
 
 @app.route("/")
-def index():
-    return render_template('index.html',var="sexe")
+def affichage():
+    return render_template("index.html")
 
-@app.route("/poke")
-def pokemon():
-    return render_template('pokemon.html',pokemon_name="sexe",pok_name_fr="bite",pok_name_eng="dick",sprite="sprite",sprite_shiny="SS",sprite_region_diff="diff",stats_du_pok=["150","300"])
+@app.route("/<pokemon>", methods=["GET"])
+def pokemon(pokemon = None):
+    return render_template("pokemon.html", pokemon = pokemon)
+
+@app.route("/account", methods=["POST"])
+def exo1():
+    return render_template("account.html")
