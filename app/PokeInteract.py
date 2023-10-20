@@ -66,12 +66,35 @@ class PokeInteract:
                     'shiny': poke['sprites']['front_shiny']}
 
     @staticmethod
-    def get_poke_stats(poke: dict):
+    def get_poke_stats(poke: dict) -> list:
         return poke['stats']
-    # TODO repare
 
     @staticmethod
-    def get_poke_types(poke: dict):
+    def get_poke_types(poke: dict) -> list:
         if len(poke['types']) > 1:
             return [poke['types'][:]['type']['name']]
         return [poke['types'][0]['type']['name']]
+
+    @staticmethod
+    def get_poke_hp(poke: dict):
+        return PokeInteract.get_poke_stats(poke)[0]['base_stat']
+
+    @staticmethod
+    def get_poke_attack(poke: dict):
+        return PokeInteract.get_poke_stats(poke)[1]['base_stat']
+
+    @staticmethod
+    def get_poke_defense(poke: dict):
+        return PokeInteract.get_poke_stats(poke)[2]['base_stat']
+
+    @staticmethod
+    def get_poke_special_attack(poke: dict):
+        return PokeInteract.get_poke_stats(poke)[3]['base_stat']
+
+    @staticmethod
+    def get_poke_special_defense(poke: dict):
+        return PokeInteract.get_poke_stats(poke)[4]['base_stat']
+
+    @staticmethod
+    def get_poke_speed(poke: dict):
+        return PokeInteract.get_poke_stats(poke)[5]['base_stat']
