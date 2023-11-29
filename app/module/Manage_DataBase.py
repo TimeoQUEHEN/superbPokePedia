@@ -11,17 +11,17 @@ from os.path import exists
 class ManageDB:
     def __init__(self, home_schema: str):
         """
-        Initialise un tableau de données en lisant les fichiers situé dans le Dossier Data
+        Initialise un tableau de données en lisant les fichiers situé dans le Dossier Home_Schema fourni en paramètre
         Deux Variables Connection et Cursor visant à accueillir les objets de même nom du module Sqlite3
         """
-        self.schemas = []
+        if not exists(home_schema):
+            os.mkdir(home_schema)
+        self.home_schema = home_schema
+        self.schemas = [file.split(".")[0] for file in os.listdir(home_schema) if file.endswith(".db")]
         self.tables = {}
         self.current_schema = None
         self.connection = None
         self.cursor = None
-        if not exists(home_schema):
-            os.mkdir(home_schema)
-        self.home_schema = home_schema
 
     def create_schema(self, schema: str):
         """
@@ -51,7 +51,7 @@ class ManageDB:
         """
         self.safe_close()
         if schema in self.schemas:
-            self.connection = sql.connect(f"./Data/{schema}.db")
+            self.connection = sql.connect(f"./{self.home_schema}/{schema}.db")
             self.cursor = self.connection.cursor()
             for table in self.cursor.execute("select name from sqlite_master where type='table';").fetchall():
                 self.tables[schema].append(table[0])
