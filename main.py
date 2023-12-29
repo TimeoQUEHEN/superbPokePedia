@@ -1,4 +1,3 @@
-import requests
 from flask import Flask, render_template
 
 # python -m flask --app .\nom_du_fichier\ run
@@ -14,10 +13,14 @@ def affichage():
 
 
 @app.route("/<pokemon>", methods=["GET"])
-def pokemon(pokemon=None):
-    return render_template("pokemon.html", pokemon=pokemon)
+def pokemon(poke=None):
+    return render_template("pokemon.html", pokemon=poke)
 
 
 @app.route("/account", methods=["POST"])
 def exo1():
     return render_template("account.html")
+
+
+if __name__ == "__main__":
+    app.run()
