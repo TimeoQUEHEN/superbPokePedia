@@ -3,8 +3,9 @@
 {% block content %}
     <h1>{% block title %} Index {% endblock %}</h1>
     <div class="researchBarPok">
-        <form action="POST">
-            <input type="search"/>
+        <form action="/search" method="POST">
+            <input type="text" name="pokemon" placeholder="Pokemon"/>
+            <button type="submit">Rechercher</button>
         </form>
     </div>
     <main>
