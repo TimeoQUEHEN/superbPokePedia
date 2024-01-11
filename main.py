@@ -1,11 +1,13 @@
-import bcrypt
+
 from flask import Flask, render_template, request, redirect, make_response
 
 from app.module.Manage_DataBase import ManageDB
+from app.PokeInteract import PokeInteract
 
 # python -m flask --app .\nom_du_fichier\ run
 
 database = ManageDB("database.sqlite")
+api = PokeInteract()
 
 
 def init_database():
@@ -25,7 +27,7 @@ init_database()
 
 
 def cryptage(password):
-    return bcrypt.hashpw(password, bcrypt.gensalt(12))
+    return password
 
 
 app = Flask(__name__, static_url_path='',
@@ -38,9 +40,15 @@ def acceuil():
     return render_template("index.html")
 
 
+@app.route("/search", methods=["POST"])
+def search():
+    return redirect("/pokemon/"+request.form["pokemon"])
+
+
 @app.route("/pokemon/<pokemon>", methods=["GET"])
 def pokemon(pokemon=None):
-    return render_template("pokemon.html", pokemon=pokemon)
+    poke = api.get_poke(pokemon)
+    return render_template("pokemon.html", pokemon=poke)
 
 
 @app.route("/account", methods=["GET"])
