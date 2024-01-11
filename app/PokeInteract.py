@@ -43,6 +43,10 @@ class PokeInteract:
         return requests.get(poke['species']['url']).json()
 
     @staticmethod
+    def get_poke_name(poke):
+        return poke['name']
+
+    @staticmethod
     def get_poke_ability(poke) -> list:
         return poke['abilities']
 
@@ -63,7 +67,10 @@ class PokeInteract:
                     'shiny_female': poke['sprites']['front_shiny_female']}
         else:
             return {'male': poke['sprites']['front_default'],
-                    'shiny': poke['sprites']['front_shiny']}
+                    'female': None,
+                    'shiny': poke['sprites']['front_shiny'],
+                    'shiny_female': None
+                    }
 
     @staticmethod
     def get_poke_stats(poke: dict) -> list:

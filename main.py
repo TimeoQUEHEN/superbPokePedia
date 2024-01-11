@@ -2,12 +2,11 @@
 from flask import Flask, render_template, request, redirect, make_response
 
 from app.module.Manage_DataBase import ManageDB
-from app.PokeInteract import PokeInteract
+from app.Pokemon import *
 
 # python -m flask --app .\nom_du_fichier\ run
 
 database = ManageDB("database.sqlite")
-api = PokeInteract()
 
 
 def init_database():
@@ -46,8 +45,8 @@ def search():
 
 
 @app.route("/pokemon/<pokemon>", methods=["GET"])
-def pokemon(pokemon=None):
-    poke = api.get_poke(pokemon)
+def pokemon(pokemon='pikachu'):
+    poke = Pokemon(pokemon)
     return render_template("pokemon.html", pokemon=poke)
 
 
