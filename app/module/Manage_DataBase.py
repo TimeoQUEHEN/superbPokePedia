@@ -1,5 +1,5 @@
-#  Copyright (c) 2024.
-#  Ceci est une propriété de CoRExE, vous êtes autorisés à l'intégration de ce produit.
+#  Copyright (c) 2023.
+#  Ceci est une propriété de CoRE.ExE, vous êtes autorisés à l'intégration de ce produit.
 #  Il est formellement interdit de monétiser ce contenu.
 #  Toute infraction aux règles précédemment citée pourra engager des poursuites.
 
@@ -116,7 +116,6 @@ class ManageDB:
             self.current_schema, self.cursor, self.connection = None, None, None
         else:
             print("Nothing to close")
-            return False
 
     def force_close(self):
         """
@@ -151,12 +150,12 @@ class ManageDB:
         :return bool:
         """
         assert args[:6] == "CREATE" and args[7:12] == "TABLE", "Command must be CREATE TABLE"
-        if self.check_connexion() and args.split(" ")[2] not in self.tables[self.current_schema]:
+        if self.check_connexion():
             self.cursor.execute(args)
             self.tables[self.current_schema].append((args.split(" ")[2]))
             return True
         else:
-            print("Aucune connexion établie ou La table existe deja")
+            print("Veuillez établir une connexion sur un Fichier de base base de donnée")
             return False
 
     def delete_table(self, args):
@@ -168,12 +167,11 @@ class ManageDB:
         :return:
         """
         assert args[0:4] == "DROP" and args[5:10] == "TABLE", "Command must be DROP TABLE"
-        if args.split(" ")[2] in self.tables[self.current_schema] and self.check_connexion():
+        if args.split(" ")[2] in self.tables[self.current_schema]:
             self.cursor.execute(args)
             self.tables[self.current_schema].remove(args.split(" ")[2])
         else:
-            print("La table n'existe pas ou aucune connexion établie")
-            return False
+            print("La table n'existe pas")
 
     def insertion(self, args: str):
         """
@@ -183,11 +181,7 @@ class ManageDB:
         :return:
         """
         assert args[0:6] == "INSERT" and args[7:11] == "INTO", "Command must be INSERT INTO"
-        if self.check_connexion() and args.split(" ")[2] in self.tables[self.current_schema]:
-            self.cursor.execute(args)
-        else:
-            print("La table n'existe pas ou aucune connexion établie")
-            return False
+        self.cursor.execute(args)
 
     def delete_data(self, args: str):
         """
@@ -197,13 +191,9 @@ class ManageDB:
         :return:
         """
         assert args[0:6] == "DELETE" and args[7:11] == "FROM", "Command must be DELETE FROM"
-        if self.check_connexion() and args.split(" ")[2] in self.tables[self.current_schema]:
-            self.cursor.execute(args)
-        else:
-            print("La table n'existe pas ou aucune connexion établie")
-            return False
+        self.cursor.execute(args)
 
-    def selection(self, args: str) -> list | False:
+    def selection(self, args: str) -> list:
         """
         Réalise une vérification de commande sur le premier mot
         Et Affiche tous les résultats de la sélection
@@ -211,72 +201,5 @@ class ManageDB:
         :return data <list[tuple]>:
         """
         assert args[0:6] == "SELECT", "Command must be SELECT"
-        if self.check_connexion() and args.split(" ")[3] in self.tables[self.current_schema]:
-            data = self.cursor.execute(args).fetchall()
-            return data
-        else:
-            print("La table n'existe pas ou aucune connexion établie")
-            return False
-
-    def simple_create_table(self, table: str, columns: list[tuple]):
-        """
-        Créer une table simplement en donnant son nom et ses colonnes
-        :param table:
-        :param columns:
-        :return:
-        """
-        args = "CREATE TABLE " + table + " ("
-        for column in columns:
-            args += column[0] + " " + column[1] + ", "
-        args = args[:-2] + ");"
-        self.create_table(args)
-
-    def simple_delete_table(self, table: str):
-        """
-        Supprime une table simplement en donnant son nom
-        :param table:
-        :return:
-        """
-        args = "DROP TABLE " + table + ";"
-        self.delete_table(args)
-
-    def simple_insertion(self, table: str, columns: list, values: list[tuple]):
-        """
-        Ajoute des données à une table simplement en donnant son nom, ses colonnes et ses données
-        :param table:
-        :param columns:
-        :param values:
-        :return:
-        """
-        args = "INSERT INTO " + table + " ("
-        for column in columns:
-            args += (column + ", ")
-        args = args[:-2] + ") VALUES "
-        for value in values:
-            args += "("
-            for val in value:
-                args += (str(val) + ", ")
-            args = args[:-2] + "), "
-        self.insertion(args)
-
-    def simple_selection(self, table: str, columns: list | str = "*", conditions: list[str] = None):
-        """
-        Affiche les données d'une table simplement en donnant son nom et ses colonnes
-        :param table:
-        :param columns:
-        :param conditions:
-        :return:
-        """
-        args = "SELECT "
-        if type(columns) is list:
-            for column in columns:
-                args += (column + ", ")
-            args = args[:-2]
-        else:
-            args += columns
-        args += " FROM " + table
-        if conditions is not None:
-            for condition in conditions:
-                args += " " + condition
-        args += ";"
-        return self.selection(args)
+        data = self.cursor.execute(args).fetchall()
+        return data

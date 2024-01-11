@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %} - SPP - SuperbPokePedia</title>
+        <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <div id="containerPok">
+
+
+        <header>
+
+            <nav>
+                <a href="#">
+                    <div id="accLink">
+                        <p>Account</p>
+                    </div>
+                </a>
+                <a href="#">
+                    <div id="regLink">
+                        <p>Register</p>
+                    </div>
+                </a>
+                <a href="#">
+                    <div id="trendLink">
+                        <p>Trending Pokemon</p>
+                    </div>
+                </a>
+            </nav>
+            <aside>
+                <img src="./images/Pokemon.svg" />
+            </aside>
+        </header>
+
+
+        <div class="content">
+            {% block content %} {% endblock %}
+        </div>
+
+
+        <footer>
+            <a href="">PokeAPI</a>
+            <a href="">Pokemon</a>
+            <a href="">Connections</a>
+        </footer>
+
+
+    </div>
+</body>
+</html>
