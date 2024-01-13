@@ -96,7 +96,9 @@ def register():
                                                                               request.form["user_email"],
                                                                               cryptage(request.form["user_password"])])
             database.force_close()
-            return redirect("/account")
+            vue = resp = make_response(render_template('account.html'))
+            resp.set_cookie('user_id', id)
+            return vue
         except:
             database.force_close()
             return redirect("/register")
