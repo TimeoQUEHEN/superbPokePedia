@@ -43,11 +43,11 @@ class PokeInteract:
         return requests.get(poke['species']['url']).json()
 
     @staticmethod
-    def get_poke_name(poke):
+    def get_poke_name(poke: dict) -> str:
         return poke['name']
 
     @staticmethod
-    def get_poke_ability(poke) -> list:
+    def get_poke_ability(poke: dict) -> list:
         return poke['abilities']
 
     @staticmethod
