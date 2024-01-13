@@ -71,9 +71,9 @@ def login():
     else:
         try:
             database.connexion("user")
+            user = (request.form["email"], cryptage(request.form["password"]))
             id = database.cursor.execute("SELECT user_id FROM user WHERE user_email = ? AND user_password = ?;",
-                                         [request.form["user_email"],
-                                          cryptage(request.form["user_password"])]).fetchone()
+                                         user).fetchone()[0]
             database.force_close()
             assert id is not None, "Email ou Mot de passe incorrect"
             vue = redirect('/account')
