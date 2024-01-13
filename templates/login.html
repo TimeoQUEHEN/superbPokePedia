@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Connexion</h1>
+    <form method="POST" action="/login">
+        <div>
+            <label>Email</label>
+            <input type="text" name="email">
+        </div>
+        <div>
+            <label>Mot de passe</label>
+            <input type="password" name="password">
+        </div>
+        <div>
+            <button type="submit">Se connecter</button>
+        </div>
+    </form>
+{% endblock %}

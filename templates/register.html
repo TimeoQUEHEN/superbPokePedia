@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Création d'un compte</h1>
+    <form method="POST" action="/register">
+        <div>
+            <label>Nom d'utilisateur</label>
+            <input type="text" name="name">
+        </div>
+        <div>
+            <label>Email</label>
+            <input type="text" name="email">
+        </div>
+        <div>
+            <label>Mot de passe</label>
+            <input type="password" name="password">
+        </div>
+        <div>
+            <label>Confirmer le mot de passe</label>
+            <input type="password" name="confirmation_password">
+        </div>
+        <div>
+            <button type="submit">Créer le compte</button>
+        </div>
+    </form>
+    <i>*En créant un compte vous accepter qu'on utilise un cookie pour votre connexion.</i>
+{% endblock %}
