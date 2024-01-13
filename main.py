@@ -55,10 +55,10 @@ def acceuil():
 
 @app.route("/search", methods=["POST"])
 def search():
-    return redirect("/pokemon/"+request.form["pokemon"])
+    return redirect("/"+request.form["pokemon"])
 
 
-@app.route("/pokemon/<pokemon>", methods=["GET"])
+@app.route("/<pokemon>", methods=["GET"])
 def pokemon(pokemon='pikachu'):
     user = get_user(request.cookies.get("user_id"))
     poke = Pokemon(pokemon)
@@ -94,7 +94,7 @@ def register():
             return redirect('/')
         return render_template("register.html", user={"connecte": False})
     else:
-            try:
+
                 database.connexion("user")
                 new_id = database.selection("SELECT MAX(user_id) FROM user;")[0][0]
                 if new_id is None:
@@ -108,7 +108,7 @@ def register():
                 vue = redirect('/')
                 vue.set_cookie('user_id', str(user[0]))
                 return vue
-            except:
+
                 database.force_close()
                 return redirect("/register")
 
