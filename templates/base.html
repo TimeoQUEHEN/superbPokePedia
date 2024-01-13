@@ -4,54 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %} {% endblock %} - SPP - SuperbPokePedia</title>
-        <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="./css/index.css">
 </head>
 <body>
-    <div id="containerPok">
+    <img src="./images/SPP.svg" alt="logo" id="logo">
+    <header>
+        <nav>
+            <a href="/">HOME</a>
+            <a href="/register">REGISTER</a>
+            <a href="/login">LOGIN</a>
+        </nav>
+    </header>
 
+    <main class="content">
+        {% block content %} {% endblock %}
+    </main>
 
-        <header>
-
-            <nav>
-                <a href="/account">
-                    <div id="accLink">
-                        <p>Account</p>
-                    </div>
-                </a>
-                <a href="/login">
-                    <div id="logLink">
-                        <p>Login</p>
-                    </div>
-                </a>
-                <a href="/register">
-                    <div id="regLink">
-                        <p>Register</p>
-                    </div>
-                </a>
-                <a href="#">
-                    <div id="trendLink">
-                        <p>Trending Pokemon</p>
-                    </div>
-                </a>
-            </nav>
-            <aside>
-                <img src="./images/Pokemon.svg" />
-            </aside>
-        </header>
-
-
-        <div class="content">
-            {% block content %} {% endblock %}
-        </div>
-
-
-        <footer>
-            <a href="">PokeAPI</a>
-            <a href="">Pokemon</a>
-            <a href="">Connections</a>
-        </footer>
-
-
-    </div>
+    <footer>
+        <p>Copyright &copy; 2024 Les chevaliers de la git-pocalypse, Tout droit réservés</p>
+        <a href="">PokeAPI</a>
+        <a href="">Pokemon</a>
+        <a href="">Connections</a>
+    </footer>
 </body>
 </html>

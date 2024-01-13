@@ -1,23 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} Index {% endblock %}</h1>
-    <div class="researchBarPok">
-        <form action="/search" method="POST">
-            <input type="text" name="pokemon" placeholder="Pokemon"/>
-            <button type="submit">Rechercher</button>
+    <div id="milieu">
+        <div id="researchBarPok">
+        <h2>Saisissez le nom d'un pokemon</h2>
+        <form method="POST" action="/search">
+            <input type="search" name="pokemon" id="bar"/>
+            <button type="submit" id="loupe"><img src="images/loupe.png"></button>
         </form>
     </div>
-    <main>
+    <div style="display: flex; justify-content: center;">
         <div class="blocPok">
-            <p>Favorite pokemons goes here</p>
+            <p>Favorite pokémon goes here</p>
         </div>
         <div class="blocPok">
-            <p>Table des types goes here (dynamic table would be fancy)</p>
+            <p>Table des types goes here</p>
         </div>
-    </main>
-    <aside>
-
-    </aside>
-    <h3>{{ var }}, that should be a random variable</h3>
+    </div>
+    </div>
 {% endblock %}

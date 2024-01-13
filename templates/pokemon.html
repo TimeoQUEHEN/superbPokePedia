@@ -14,20 +14,20 @@
             <td>{{sprite}}</td>
             {% endfor %}
         </tr>
-        <tr>
-            <td colspan="3">Statistiques au niveau 1</td>
-        </tr>
+    </table>
+    <table>
+        <thead>Statistiques au niveau 1</thead>
         <tr>
             {% for stats in dicoStats %}
             <td colspan="1">{{stats}} : {{dicoStats[stats]}}</td>
             {% endfor %}
         </tr>
-    </table>
+        </table>
     <table id="tabFamille">
         <thead>Famille</thead>
         <tr>
             {% for famille_sprite in listeFamilleSprite %}
-            <td><a href=""><img src="{{famille_sprite}}"></a></td>
+            <td><a href="/"><img src="{{famille_sprite}}"></a></td>
             {% endfor %}
         </tr>
     </table>

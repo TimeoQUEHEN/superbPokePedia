@@ -1,27 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Création d'un compte</h1>
-    <form method="POST" action="/register">
-        <div>
-            <label>Nom d'utilisateur</label>
-            <input type="text" name="name">
+<div class="centre">
+    <h1>{% block title %} Création d'un compte {% endblock %} <sup style="color: goldenrod;">*</sup></h1>
+    <form method="POST" action="/register" class="formLog">
+        <div class="divLog">
+            <label class="labeLog">Nom d'utilisateur</label>
+            <input type="text" name="name" class="inputLog">
         </div>
-        <div>
-            <label>Email</label>
-            <input type="text" name="email">
+        <div class="divLog">
+            <label class="labeLog">Email</label>
+            <input type="text" name="email" class="inputLog">
         </div>
-        <div>
-            <label>Mot de passe</label>
-            <input type="password" name="password">
+        <div class="divLog">
+            <label class="labeLog">Mot de passe</label>
+            <input type="password" name="password" class="inputLog">
         </div>
-        <div>
-            <label>Confirmer le mot de passe</label>
-            <input type="password" name="confirmation_password">
+        <div class="divLog">
+            <label class="labeLog">Confirmer le mot de passe</label>
+            <input type="password" name="confirmation_password" class="inputLog">
         </div>
-        <div>
-            <button type="submit">Créer le compte</button>
+        <div class="divLog">
+            <button type="submit" style="margin-left:0; margin-top: 1rem;">Créer le compte</button>
         </div>
     </form>
-    <i>*En créant un compte vous accepter qu'on utilise un cookie pour votre connexion.</i>
+</div>
+<p id="asterix"><sub><i>*En créant un compte, vous acceptez l'utilisation de cookie pour enregistrer votre status de connexion.</i></sub></p>
 {% endblock %}
