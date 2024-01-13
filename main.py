@@ -76,8 +76,8 @@ def login():
                                           cryptage(request.form["user_password"])]).fetchone()
             database.force_close()
             assert id is not None, "Email ou Mot de passe incorrect"
-            vue = resp = make_response(render_template('account.html'))
-            resp.set_cookie('user_id', id)
+            vue = redirect('/account')
+            vue.set_cookie('user_id', str(id))
             return vue
         except:
             database.force_close()
@@ -100,8 +100,8 @@ def register():
             database.save()
             print("ok")
             database.force_close()
-            vue = resp = make_response(render_template('account.html'))
-            resp.set_cookie('user_id', str(id))
+            vue = redirect('/account')
+            vue.set_cookie('user_id', str(id))
             return vue
         except:
             database.force_close()
