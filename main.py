@@ -25,6 +25,13 @@ def init_database():
 
 init_database()
 
+def get_user(id):
+    if id is None:
+        return {'connecte': False}
+    user = (database.cursor.execute("SELECT * FROM user WHERE user_id = ?;", [id])
+            .fetchone())
+    database.force_close()
+    return {'id': user[0], 'name': user[1], 'email': user[2], 'password': user[3], 'connecte': True}
 
 def cryptage(password):
     return password
@@ -37,7 +44,8 @@ app = Flask(__name__, static_url_path='',
 
 @app.route("/")
 def acceuil():
-    return render_template("index.html")
+        user = get_user(request.cookies.get("user_id"))
+        return render_template("index.html", user=user)
 
 
 @app.route("/search", methods=["POST"])
@@ -47,17 +55,16 @@ def search():
 
 @app.route("/pokemon/<pokemon>", methods=["GET"])
 def pokemon(pokemon=None):
+    user = get_user(request.cookies.get("user_id"))
     poke = api.get_poke(pokemon)
-    return render_template("pokemon.html", pokemon=poke)
+    return render_template("pokemon.html", user=user, pokemon=poke)
 
 
 @app.route("/account", methods=["GET"])
 def account():
     try:
         database.connexion("user")
-        user = (database.cursor.execute("SELECT * FROM user WHERE user_id = ?;", [request.cookies.get("user_id")])
-                .fetchone())
-        database.force_close()
+        user = get_user(request.cookies.get("user_id"))
         return render_template("account.html", user=user)
     except:
         database.force_close()
@@ -67,7 +74,9 @@ def account():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
-        return render_template("login.html")
+        if request.cookies.get("user_id") is not None:
+            return redirect('/account')
+        return render_template("login.html", user={"connecte": False})
     else:
         try:
             database.connexion("user")
@@ -87,12 +96,14 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "GET":
-        return render_template("register.html")
+        if request.cookies.get("user_id") is not None:
+            return redirect('/account')
+        return render_template("register.html", user={"connecte": False})
     else:
         try:
             database.connexion("user")
             new_id = database.selection("SELECT MAX(user_id) FROM user;")[0][0]
-            if (new_id is None):
+            if new_id is None:
                 new_id = -1
             user = (new_id+1, request.form["name"], request.form["email"], cryptage(request.form["password"]))
             print(user)
