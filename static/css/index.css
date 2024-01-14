@@ -3,6 +3,11 @@
     src: url(../fonts/NovaMono-Regular.ttf);
 }
 
+@font-face {
+    font-family: Ubuntu;
+    src: url(../fonts/Ubuntu-Regular.ttf);
+}
+
 #milieu {
     padding-top: 38vh;
     padding-bottom: 38vh;
@@ -104,16 +109,35 @@ footer>a:first-child {
     margin-left:0;
 }
 
-table, th, td {
+table, td {
     border : 2px solid black;
 }
 
-#tableauPok{
-    border:solid, black, 2px;
+td, label {
+    font-family: Ubuntu;
 }
 
-#tabFamille{
+td {
+    text-align: center;
+}
+
+.titreTab {
+    text-transform: uppercase;
+    padding: 1rem;
+}
+
+#tableauPok, #tabFamille{
     border:solid, black, 2px;
+    margin: auto;
+}
+
+#titrePok, #soustitrePok {
+    text-align: center;
+}
+
+#soustitrePok {
+    font-family: Nova;
+    margin-top: 0;
 }
 
 header>nav>a, .divLog>button{
@@ -126,6 +150,10 @@ header>nav>a, .divLog>button{
     font-weight: 600;
     font-family: Nova;
     margin-left: 5vw;
+}
+
+.sprite {
+    background-color: #fafafa;
 }
 
 #logo {
@@ -213,4 +241,35 @@ h1 {
     border-radius: 15px;
     border-spacing: 1rem;
     display: table-cell;
+}
+
+h4 {
+    text-align: center;
+    font-family: Nova;
+}
+
+h6 {
+    font-family: Ubuntu;
+}
+
+#sectionStat {
+    display: table;
+    margin:auto;
+    margin-bottom: 1rem
+}
+
+.divStat {
+    display: table-row;
+    font-size: medium;
+}
+
+.hStat, .progStat {
+    font-size: medium;
+    display: table-cell;
+}
+
+.progStat {
+    padding: 0.5rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
 }

@@ -1,33 +1,37 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} {{pokemon.name}} {% endblock %}</h1>
+    <h1 style="text-transform:uppercase;" id="titrePok">{% block title %} {{pokemon.name}} {% endblock %}</h1>
+    <h4 id="soustitrePok">{{pokemon.french_name}} / {{pokemon.name}}</h4>
     <table id="tableauPok">
-        <thead>{{pokemon.french_name}} / {{pokemon.name}}</thead>
         <tr>
-            <p>sprite</p>
+            <td colspan="{{pokemon.sprites|length}}" class="titreTab">sprite</td>
+        </tr>
+        <tr>
             {% for sprite in pokemon.sprites %}
                 {% if sprite %}
-                    <img src='{{sprite}}'>
+                    <td class="sprite">
+                        <img src='{{sprite}}'>
+                    </td>
                 {% endif %}
             {% endfor %}
         </tr>
         <tr>
-            <p>Types</p>
+            <td colspan="{{pokemon.sprites|length}}" class="titreTab">types</td>
+        </tr>
+        <tr>
             {% for type in pokemon.types %}
             <td>{{type}}</td>
             {% endfor %}
         </tr>
-        </table>
-        <ul>
-            <li>Statistiques au niveau 1</li>
-            <li></li>
-            <li> HP : <progress value="{{pokemon.hp}}" max="255"></progress>{{pokemon.hp}}</li>
-            <li> Attack : <progress value="{{pokemon.attack}}" max="255"></progress>{{pokemon.attack}}</li>
-            <li> Defense : <progress value="{{pokemon.defense}}" max="255"></progress>{{pokemon.defense}}</li>
-            <li> Sp. Attack : <progress value="{{pokemon.sp_attack}}" max="255"></progress>{{pokemon.sp_attack}}</li>
-            <li> Sp. Defense : <progress value="{{pokemon.sp_defense}}" max="255"></progress>{{pokemon.sp_defense}}</li>
-            <li> Speed : <progress value="{{pokemon.speed}}" max="255"></progress>{{pokemon.speed}}</li>
-        </ul>
-    <p>I can't find your family, you're adopted</p>
+    </table>
+    <h4>Statistiques au niveau 1</h4>
+    <section id="sectionStat">
+        <div class="divStat"><h6 class="hStat">Heath Points</h6> <progress value="{{pokemon.hp}}" max="255" class="progStat"></progress>{{pokemon.hp}}</div>
+        <div class="divStat"><h6 class="hStat">Attack</h6> <progress value="{{pokemon.attack}}" max="255" class="progStat"></progress>{{pokemon.attack}}</div>
+        <div class="divStat"><h6 class="hStat">Defense</h6> <progress value="{{pokemon.defense}}" max="255" class="progStat"></progress>{{pokemon.defense}}</div>
+        <div class="divStat"><h6 class="hStat">Spe. Attack</h6> <progress value="{{pokemon.sp_attack}}" max="255" class="progStat"></progress>{{pokemon.sp_attack}}</div>
+        <div class="divStat"><h6 class="hStat">Spe. Defense</h6> <progress value="{{pokemon.sp_defense}}" max="255" class="progStat"></progress>{{pokemon.sp_defense}}</div>
+        <div class="divStat"><h6 class="hStat">Speed</h6> <progress value="{{pokemon.speed}}" max="255" class="progStat"></progress>{{pokemon.speed}}</div>
+    </section>
 {% endblock %}

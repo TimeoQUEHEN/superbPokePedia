@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="centre">
-    <h1>Connexion</h1>
+    <h1>{% block title %} Connexion {% endblock %}</h1>
     <form method="POST" action="/login" class="formLog">
         <div class="divLog">
             <label class="labeLog">Email</label>
