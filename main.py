@@ -25,6 +25,7 @@ def init_database():
 init_database()
 
 def get_user(id):
+    print("id:",id)
     if id is None:
         return {'connecte': False}
     database.connexion("user")
