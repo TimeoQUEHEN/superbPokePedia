@@ -47,6 +47,10 @@ class PokeInteract:
         return poke['name']
 
     @staticmethod
+    def get_poke_lang_name(poke: str) -> dict:
+        return requests.get("https://pokeapi.co/api/v2/pokemon-species/"+poke).json()['names']
+
+    @staticmethod
     def get_poke_ability(poke: dict) -> list:
         return poke['abilities']
 
@@ -78,9 +82,7 @@ class PokeInteract:
 
     @staticmethod
     def get_poke_types(poke: dict) -> list:
-        if len(poke['types']) > 1:
-            return [poke['types'][:]['type']['name']]
-        return [poke['types'][0]['type']['name']]
+        return poke['types']
 
     @staticmethod
     def get_poke_hp(poke: dict):
