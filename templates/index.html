@@ -13,16 +13,17 @@
     <div style="display: flex; justify-content: center;">
         {% if user['connecte'] %}
             <div class="blocPok">
-                {% for pokemon in favorites %}
-                    <div>
-                        <span>{{pokemon.french_name}} / {{pokemon.name}}</span>
-                    </div>
-                {% endfor %}
+                {% if favorites|length == 0 %}
+                    <p style="text-align:center; font-family:Ubuntu;">Aucun favoris enregistrés</p>
+                {% else %}
+                    {% for pokemon in favorites %}
+                        <p style="text-align:center; font-family:Ubuntu;">{{pokemon.french_name}} / {{pokemon.name}}</p>
+                    {% endfor %}
+                {% endif %}
             </div>
+        {% else %}
+        <p style="text-align:center; font-family:Ubuntu;"> <strong>connectez vous pour acceder à vos pokemons favoris</strong></p>
         {% endif %}
-        <div class="blocPok">
-            <p>Table des types goes here</p>
-        </div>
     </div>
     </div>
 {% endblock %}

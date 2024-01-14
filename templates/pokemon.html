@@ -3,8 +3,8 @@
 {% block content %}
     <h1 style="text-transform:uppercase;" id="titrePok">{% block title %} {{pokemon.name}} {% endblock %}</h1>
     <h4 id="soustitrePok">{{pokemon.french_name}} / {{pokemon.name}}</h4>
-    <form action="/{{pokemon.name}}/favorite" method="POST">
-        <button type="submit">{% if favorite %}Retirer des{% else %}Ajouter aux{% endif %} favoris</button>
+    <form action="/{{pokemon.name}}/favorite" method="POST" style="display: flex; justify-content: center;">
+        <button type="submit" id="btnFav">{% if favorite %}Retirer des{% else %}Ajouter aux{% endif %} favoris</button>
     </form>
     <table id="tableauPok">
         <tr>
@@ -26,6 +26,9 @@
             {% for type in pokemon.types %}
             <td>{{type}}</td>
             {% endfor %}
+        </tr>
+        <tr>
+            <td colspan="{{pokemon.sprites|length}}"><audio controls src="" style=""></audio></td>
         </tr>
     </table>
     <h4>Statistiques au niveau 1</h4>
