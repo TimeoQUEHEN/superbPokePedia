@@ -2,7 +2,7 @@
 from flask import Flask, render_template, request, redirect, make_response
 
 from app.module.Manage_DataBase import ManageDB
-from app.PokeInteract import PokeInteract
+from app.Pokemon import *
 
 # python -m flask --app .\nom_du_fichier\ run
 

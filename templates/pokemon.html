@@ -1,34 +1,33 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} {{pokemon['name']}} {% endblock %}</h1>
+    <h1>{% block title %} {{pokemon.name}} {% endblock %}</h1>
     <table id="tableauPok">
-        <thead>{{pok_name_fr}} / {{pok_name_eng}}</thead>
+        <thead>{{pokemon.french_name}} / {{pokemon.name}}</thead>
         <tr>
-            {% for sprite in listeSprite %}
-            <td>{{sprite}}</td>
+            <p>sprite</p>
+            {% for sprite in pokemon.sprites %}
+                {% if sprite %}
+                    <img src='{{sprite}}'>
+                {% endif %}
             {% endfor %}
         </tr>
         <tr>
-            {% for type in listeType %}
-            <td>{{sprite}}</td>
+            <p>Types</p>
+            {% for type in pokemon.types %}
+            <td>{{type}}</td>
             {% endfor %}
         </tr>
-        <tr>
-            <td colspan="3">Statistiques au niveau 1</td>
-        </tr>
-        <tr>
-            {% for stats in dicoStats %}
-            <td colspan="1">{{stats}} : {{dicoStats[stats]}}</td>
-            {% endfor %}
-        </tr>
-    </table>
-    <table id="tabFamille">
-        <thead>Famille</thead>
-        <tr>
-            {% for famille_sprite in listeFamilleSprite %}
-            <td><a href=""><img src="{{famille_sprite}}"></a></td>
-            {% endfor %}
-        </tr>
-    </table>
+        </table>
+        <ul>
+            <li>Statistiques au niveau 1</li>
+            <li></li>
+            <li> HP : <progress value="{{pokemon.hp}}" max="255"></progress>{{pokemon.hp}}</li>
+            <li> Attack : <progress value="{{pokemon.attack}}" max="255"></progress>{{pokemon.attack}}</li>
+            <li> Defense : <progress value="{{pokemon.defense}}" max="255"></progress>{{pokemon.defense}}</li>
+            <li> Sp. Attack : <progress value="{{pokemon.sp_attack}}" max="255"></progress>{{pokemon.sp_attack}}</li>
+            <li> Sp. Defense : <progress value="{{pokemon.sp_defense}}" max="255"></progress>{{pokemon.sp_defense}}</li>
+            <li> Speed : <progress value="{{pokemon.speed}}" max="255"></progress>{{pokemon.speed}}</li>
+        </ul>
+    <p>I can't find your family, you're adopted</p>
 {% endblock %}
