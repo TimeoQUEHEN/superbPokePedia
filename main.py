@@ -7,6 +7,7 @@ from app.Pokemon import *
 # python -m flask --app .\nom_du_fichier\ run
 
 database = ManageDB("database.sqlite")
+api = PokeInteract()
 
 
 def init_database():
@@ -94,7 +95,7 @@ def register():
             return redirect('/')
         return render_template("register.html", user={"connecte": False})
     else:
-
+            try:
                 database.connexion("user")
                 new_id = database.selection("SELECT MAX(user_id) FROM user;")[0][0]
                 if new_id is None:
@@ -108,7 +109,7 @@ def register():
                 vue = redirect('/')
                 vue.set_cookie('user_id', str(user[0]))
                 return vue
-
+            except:
                 database.force_close()
                 return redirect("/register")
 
