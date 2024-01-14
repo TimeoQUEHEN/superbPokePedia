@@ -107,3 +107,16 @@ class PokeInteract:
     @staticmethod
     def get_poke_speed(poke: dict):
         return PokeInteract.get_poke_stats(poke)[5]['base_stat']
+
+    @staticmethod
+    def get_poke_evolution_chain(poke: dict):
+        evolution = []
+        dico = requests.get(requests.get(poke["species"]["url"]).json()["evolution_chain"]["url"]).json()["chain"]
+        do = True
+        while (do):
+            evolution.append(requests.get("https://pokeapi.co/api/v2/pokemon/"+dico["species"]["name"]).json())
+            if len(dico["evolves_to"]) == 0:
+                do = False
+            else:
+                dico = dico["evolves_to"][0]
+        return evolution
