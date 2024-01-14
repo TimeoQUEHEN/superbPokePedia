@@ -18,7 +18,6 @@ def init_database():
                               "TEXT UNIQUE NOT NULL, user_password TEXT NOT NULL);")
         database.create_table("CREATE TABLE favorite(user_id INTEGER REFERENCES user(user_id), pokemon TEXT NOT NULL, "
                               "PRIMARY KEY(user_id, pokemon));")
-        database.create_table("CREATE TABLE sound(pokemon TEXT PRIMARY KEY, name_file TEXT);")
     except:
         database.force_close()
 
@@ -26,7 +25,6 @@ def init_database():
 init_database()
 
 def get_user(id):
-    print("id:",id)
     if id is None:
         return {'connecte': False}
     database.connexion("user")
@@ -51,19 +49,27 @@ app = Flask(__name__, static_url_path='',
 @app.route("/")
 def acceuil():
     user = get_user(request.cookies.get("user_id"))
-    return render_template("index.html", user=user)
+    favorites = []
+    database.connexion("user")
+    for pokemon in database.cursor.execute("SELECT pokemon FROM favorite WHERE user_id = ?;", [request.cookies.get("user_id")]).fetchall():
+        favorites.append(Pokemon(pokemon[0]))
+    database.force_close()
+    return render_template("index.html", user=user, favorites=favorites)
 
 
 @app.route("/search", methods=["POST"])
 def search():
-    return redirect("/pokemon/"+request.form["pokemon"])
+    return redirect("/"+request.form["pokemon"])
 
 
-@app.route("/pokemon/<pokemon>", methods=["GET"])
-def pokemon(pokemon=None):
+@app.route("/<pokemon>", methods=["GET"])
+def pokemon(pokemon='pikachu'):
     user = get_user(request.cookies.get("user_id"))
-    poke = api.get_poke(pokemon)
-    return render_template("pokemon.html", user=user, pokemon=poke)
+    poke = Pokemon(pokemon)
+    database.connexion("user")
+    favorite = database.cursor.execute("SELECT * FROM favorite WHERE user_id = ? AND pokemon = ?;", [request.cookies.get("user_id"), pokemon]).fetchone() is not None
+    database.force_close()
+    return render_template("pokemon.html", user=user, pokemon=poke, favorite=favorite)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -102,7 +108,7 @@ def register():
                     new_id = -1
                 user = (new_id + 1, request.form["name"], request.form["email"], cryptage(request.form["password"]))
                 assert (user[1] is not None and user[2] is not None and user[3] is not None and verification_email(user[2])
-                                        and user[3] == cryptage(request.form["confirmation_password"])), ""
+                        and user[3] == cryptage(request.form["confirmation_password"])), "Informations incorrectes"
                 database.cursor.execute("INSERT INTO user VALUES (?, ?, ?, ?);", user)
                 database.save()
                 database.force_close()
@@ -119,6 +125,26 @@ def logout():
     vue = redirect('/')
     vue.delete_cookie('user_id')
     return vue
+
+
+@app.route('/<pokemon>/favorite', methods=["POST"])
+def favorite(pokemon='pikachu'):
+    if request.cookies.get("user_id") is None:
+        return redirect("/login")
+    try:
+        database.connexion("user")
+        favorite = [request.cookies.get("user_id"), pokemon]
+        if database.cursor.execute("SELECT * FROM favorite WHERE user_id = ? AND pokemon = ?;", favorite).fetchone() is None:
+            database.cursor.execute("INSERT INTO favorite VALUES (?, ?);", favorite)
+        else:
+            database.cursor.execute("DELETE FROM favorite WHERE user_id = ? AND pokemon = ?;", favorite)
+        database.save()
+        database.force_close()
+        return redirect('/'+pokemon)
+    except:
+        database.force_close()
+        return redirect('/')
+
 
 if __name__ == "__main__":
     app.run()

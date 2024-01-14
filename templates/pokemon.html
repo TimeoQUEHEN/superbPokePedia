@@ -2,6 +2,9 @@
 
 {% block content %}
     <h1>{% block title %} {{pokemon.name}} {% endblock %}</h1>
+    <form action="/{{pokemon.name}}/favorite" method="POST">
+        <button type="submit">{% if favorite %}Retirer des{% else %}Ajouter aux{% endif %} favoris</button>
+    </form>
     <table id="tableauPok">
         <thead>{{pokemon.french_name}} / {{pokemon.name}}</thead>
         <tr>

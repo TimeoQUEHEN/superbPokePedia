@@ -9,9 +9,16 @@
         </form>
     </div>
     <main>
-        <div class="blocPok">
-            <p>Favorite pokemons goes here</p>
-        </div>
+        {% if user['connecte'] %}
+            <h3>Liste de vos favoris</h3>
+            <div class="blocPok">
+                {% for pokemon in favorites %}
+                    <div>
+                        <span>{{pokemon.french_name}} / {{pokemon.name}}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
         <div class="blocPok">
             <p>Table des types goes here (dynamic table would be fancy)</p>
         </div>
