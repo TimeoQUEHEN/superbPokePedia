@@ -1,18 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Connexion</h1>
-    <form method="POST" action="/login">
-        <div>
-            <label>Email</label>
-            <input type="text" name="email">
+<div class="centre">
+    <h1>{% block title %} Connexion {% endblock %}</h1>
+    <form method="POST" action="/login" class="formLog">
+        <div class="divLog">
+            <label class="labeLog">Email</label>
+            <input type="text" name="email" class="inputLog">
         </div>
-        <div>
-            <label>Mot de passe</label>
-            <input type="password" name="password">
+        <div class="divLog">
+            <label class="labeLog">Mot de passe</label>
+            <input type="password" name="password" class="inputLog">
         </div>
-        <div>
-            <button type="submit">Se connecter</button>
+        <div class="divLog">
+            <button type="submit" style="margin-left:0; margin-top: 1rem;">Se connecter</button>
         </div>
     </form>
+</div>
 {% endblock %}

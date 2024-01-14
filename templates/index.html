@@ -1,30 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} Index {% endblock %}</h1>
-    <div class="researchBarPok">
-        <form action="/search" method="POST">
-            <input type="text" name="pokemon" placeholder="Pokemon"/>
-            <button type="submit">Rechercher</button>
+    <div id="milieu">
+        <div id="researchBarPok">
+        <h2>Saisissez le nom d'un pokemon</h2>
+        <form method="POST" action="/search">
+            <input type="search" name="pokemon" id="bar"/>
+            <button type="submit" id="loupe"><img src="images/loupe.png"></button>
         </form>
     </div>
-    <main>
+     <h3>Liste de vos favoris</h3>
+    <div style="display: flex; justify-content: center;">
         {% if user['connecte'] %}
-            <h3>Liste de vos favoris</h3>
             <div class="blocPok">
-                {% for pokemon in favorites %}
-                    <div>
-                        <span>{{pokemon.french_name}} / {{pokemon.name}}</span>
-                    </div>
-                {% endfor %}
+                {% if favorites|length == 0 %}
+                    <p style="text-align:center; font-family:Ubuntu;">Aucun favoris enregistrés</p>
+                {% else %}
+                    {% for pokemon in favorites %}
+                        <p style="text-align:center; font-family:Ubuntu;">{{pokemon.french_name}} / {{pokemon.name}}</p>
+                    {% endfor %}
+                {% endif %}
             </div>
+        {% else %}
+        <p style="text-align:center; font-family:Ubuntu;"> <strong>connectez vous pour acceder à vos pokemons favoris</strong></p>
         {% endif %}
-        <div class="blocPok">
-            <p>Table des types goes here (dynamic table would be fancy)</p>
-        </div>
-    </main>
-    <aside>
-
-    </aside>
-    <h3>{{ var }}, that should be a random variable</h3>
+    </div>
+    </div>
 {% endblock %}
