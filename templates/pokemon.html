@@ -3,9 +3,12 @@
 {% block content %}
     <h1 style="text-transform:uppercase;" id="titrePok">{% block title %} {{pokemon.name}} {% endblock %}</h1>
     <h4 id="soustitrePok">{{pokemon.french_name}} / {{pokemon.name}}</h4>
+    <form action="/{{pokemon.name}}/favorite" method="POST">
+        <button type="submit">{% if favorite %}Retirer des{% else %}Ajouter aux{% endif %} favoris</button>
+    </form>
     <table id="tableauPok">
         <tr>
-            <td colspan="{{pokemon.sprites|length}}" class="titreTab">sprite</td>
+            <td colspan="{{pokemon.sprites|length}}" class="titreTab">sprites</td>
         </tr>
         <tr>
             {% for sprite in pokemon.sprites %}

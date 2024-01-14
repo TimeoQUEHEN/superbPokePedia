@@ -9,10 +9,17 @@
             <button type="submit" id="loupe"><img src="images/loupe.png"></button>
         </form>
     </div>
+     <h3>Liste de vos favoris</h3>
     <div style="display: flex; justify-content: center;">
-        <div class="blocPok">
-            <p>Favorite pokémon goes here</p>
-        </div>
+        {% if user['connecte'] %}
+            <div class="blocPok">
+                {% for pokemon in favorites %}
+                    <div>
+                        <span>{{pokemon.french_name}} / {{pokemon.name}}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
         <div class="blocPok">
             <p>Table des types goes here</p>
         </div>
