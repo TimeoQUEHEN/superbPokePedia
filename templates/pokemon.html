@@ -30,6 +30,11 @@
         <tr>
             <td colspan="{{pokemon.sprites|length}}"><audio controls src="" style=""></audio></td>
         </tr>
+        <tr>
+            {% for poke in pokemon.evolution_chain %}
+                <td><a href="/{{poke.name}}"><img src="{{poke['sprites']['front_default']}}"></a></td>
+            {% endfor %}
+        </tr>
     </table>
     <h4>Statistiques au niveau 1</h4>
     <section id="sectionStat">
