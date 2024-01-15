@@ -28,3 +28,4 @@ class Pokemon:
         self.sp_defense = poke.get_poke_special_defense(pokemon)
         self.speed = poke.get_poke_speed(pokemon)
         self.evolution_chain = poke.get_poke_evolution_chain(pokemon)
+        self.generation = poke.get_poke_generation(pokemon)

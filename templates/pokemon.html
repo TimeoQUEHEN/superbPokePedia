@@ -27,12 +27,17 @@
             <td>{{type}}</td>
             {% endfor %}
         </tr>
+        {% if pokemon.generation <= 6 %}
         <tr>
-            <td colspan="{{pokemon.sprites|length}}"><audio controls src="" style=""></audio></td>
+            <td colspan="{{pokemon.sprites|length}}"><audio controls src="../CrisPokemon/génération {{pokemon.generation}}/{{pokemon.id}} - {{pokemon.french_name|lower}}.ogg" style=""></audio></td>
+        </tr>
+        {% endif %}
+        <tr>
+            <td colspan="{{pokemon.sprites|length}}" class="titreTab">Chaîne évolutive</td>
         </tr>
         <tr>
             {% for poke in pokemon.evolution_chain %}
-                <td><a href="/{{poke.name}}"><img src="{{poke['sprites']['front_default']}}"></a></td>
+                <td {% if poke.name == pokemon.name %}style="border-color: goldenrod;"{% endif %}}><a href="/{{poke.name}}"><img src="{{poke['sprites']['front_default']}}"></a></td>
             {% endfor %}
         </tr>
     </table>
