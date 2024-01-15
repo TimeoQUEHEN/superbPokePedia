@@ -25,13 +25,15 @@ def init_database():
 init_database()
 
 def get_user(id):
-    print("id:",id)
     if id is None:
         return {'connecte': False}
-    database.connexion("user")
-    user = database.cursor.execute("SELECT * FROM user WHERE user_id = ?;", [id]).fetchone()
-    database.force_close()
-    return {'id': user[0], 'name': user[1], 'email': user[2], 'password': user[3], 'connecte': True}
+    try:
+        database.connexion("user")
+        user = database.cursor.execute("SELECT * FROM user WHERE user_id = ?;", [id]).fetchone()
+        database.force_close()
+        return {'id': user[0], 'name': user[1], 'email': user[2], 'password': user[3], 'connecte': True}
+    except:
+        return redirect('/logout')
 
 def cryptage(password):
     return password
