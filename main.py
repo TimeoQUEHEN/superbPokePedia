@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, redirect, make_response
 from app.module.Manage_DataBase import ManageDB
 from app.Pokemon import *
 
-# python -m flask --app main run --debug
+# python -m flask --app main run
 
 database = ManageDB("database.sqlite")
 api = PokeInteract()
@@ -151,4 +151,4 @@ def favorite(pokemon='pikachu'):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
