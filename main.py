@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, redirect, make_response
 from app.module.Manage_DataBase import ManageDB
 from app.Pokemon import *
 
-# python -m flask --app .\nom_du_fichier\ run
+# python -m flask --app main run --debug
 
 database = ManageDB("database.sqlite")
 api = PokeInteract()
@@ -27,13 +27,10 @@ init_database()
 def get_user(id):
     if id is None:
         return {'connecte': False}
-    try:
-        database.connexion("user")
-        user = database.cursor.execute("SELECT * FROM user WHERE user_id = ?;", [id]).fetchone()
-        database.force_close()
-        return {'id': user[0], 'name': user[1], 'email': user[2], 'password': user[3], 'connecte': True}
-    except:
-        return redirect('/logout')
+    database.connexion("user")
+    user = database.cursor.execute("SELECT * FROM user WHERE user_id = ?;", [id]).fetchone()
+    database.force_close()
+    return {'id': user[0], 'name': user[1], 'email': user[2], 'password': user[3], 'connecte': True}
 
 def cryptage(password):
     return password
@@ -51,13 +48,16 @@ app = Flask(__name__, static_url_path='',
 
 @app.route("/")
 def acceuil():
-    user = get_user(request.cookies.get("user_id"))
-    favorites = []
-    database.connexion("user")
-    for pokemon in database.cursor.execute("SELECT pokemon FROM favorite WHERE user_id = ?;", [request.cookies.get("user_id")]).fetchall():
-        favorites.append(Pokemon(pokemon[0]))
-    database.force_close()
-    return render_template("index.html", user=user, favorites=favorites)
+    try:
+        user = get_user(request.cookies.get("user_id"))
+        favorites = []
+        database.connexion("user")
+        for pokemon in database.cursor.execute("SELECT pokemon FROM favorite WHERE user_id = ?;", [request.cookies.get("user_id")]).fetchall():
+            favorites.append(Pokemon(pokemon[0]))
+        database.force_close()
+        return render_template("index.html", user=user, favorites=favorites)
+    except:
+        return redirect('/logout')
 
 
 @app.route("/search", methods=["POST"])
