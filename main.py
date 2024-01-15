@@ -18,6 +18,7 @@ def init_database():
                               "TEXT UNIQUE NOT NULL, user_password TEXT NOT NULL);")
         database.create_table("CREATE TABLE favorite(user_id INTEGER REFERENCES user(user_id), pokemon TEXT NOT NULL, "
                               "PRIMARY KEY(user_id, pokemon));")
+        database.force_close()
     except:
         database.force_close()
 
@@ -150,4 +151,4 @@ def favorite(pokemon='pikachu'):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
