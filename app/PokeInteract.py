@@ -120,3 +120,7 @@ class PokeInteract:
             else:
                 dico = dico["evolves_to"][0]
         return evolution
+
+    @staticmethod
+    def get_poke_generation(poke: dict):
+        return requests.get(requests.get(poke["species"]["url"]).json()["generation"]["url"]).json()["id"]
